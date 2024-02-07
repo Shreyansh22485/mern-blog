@@ -51,7 +51,7 @@ const OAuth = () => {
         <AiFillGoogleCircle
         size={25}
         style={{ marginRight: "4px",  }}
-          /> Sign In with Google</Button>
+          /> Continue with Google</Button>
     
     
   )
