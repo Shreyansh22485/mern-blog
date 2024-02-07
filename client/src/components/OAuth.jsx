@@ -32,18 +32,17 @@ const OAuth = () => {
             })
             const data = await res.json()
             
-            if (!res.ok) throw new Error(data.message || 'Something went wrong')
-            else{
-        dispatch(signInSuccess(data)) 
-        navigate('/')}
-            
+            if (res.ok){
+                dispatch(signInSuccess(data))
+                navigate('/')
+            }
         } catch (error) {
             console.log(error)
         }
     }
   return (
     <Button className="" 
-    type=' button'
+    type='button'
     pill
     gradientDuoTone={"pinkToOrange"} outline
     onClick={ handleGoogle}
