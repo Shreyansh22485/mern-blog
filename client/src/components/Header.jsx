@@ -6,6 +6,8 @@ import { FaMoon,  FaSun } from "react-icons/fa";
 import Projects from './../pages/Projects';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signOutSuccess } from "../redux/user/userSlice";
+
 
 const Header = () => {
 
@@ -13,6 +15,23 @@ const Header = () => {
   const { currentuser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
+  const handleSignOUt = async () => {
+    try {
+        const response = await fetch('/api/user/signout', {
+            method: 'POST',
+        });
+        const data = await response.json();
+        if(!response.ok) {
+            console.log(data.message)
+        }
+        else{
+            dispatch(signOutSuccess())
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+}
   return (
     <Navbar className="border-b-2">
       <Link
@@ -66,8 +85,8 @@ const Header = () => {
               <Link to={"/dashboard?tab=profile"}>Profile</Link>
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>
-              <Link to={"/sign-out"}>Sign Out</Link>
+            <Dropdown.Item  onClick={handleSignOUt }>
+              Sign Out
             </Dropdown.Item>
 
           </Dropdown>
