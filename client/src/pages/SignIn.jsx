@@ -68,7 +68,7 @@ const SignIn = () => {
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             
             <div>
-              <Label value="Your Email"></Label>
+              <Label  value="Your Email"></Label>
               <TextInput
                 type="email"
                 placeholder="Email"
