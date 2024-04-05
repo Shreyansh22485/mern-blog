@@ -9,8 +9,9 @@ import 'react-circular-progressbar/dist/styles.css';
 import { updateStart , updateSuccess, updateFailure , deleteUserStart, deleteUserSuccess, deleteUserFailure , signOutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 const DashProfile = () => {
-    const { currentuser, error } = useSelector((state) => state.user);
+    const { currentuser, error , loading } = useSelector((state) => state.user);
     const [ imageFile , setImageFile] = useState(null);
     const [ imageFileUrl , setImageFileUrl] = useState(null);
     const [ progressImage , setProgressImage] = useState(null);
@@ -181,7 +182,24 @@ const DashProfile = () => {
         <TextInput type='text' label='Name' id='username' placeholder={'username'} defaultValue={currentuser.username}  onChange={handleChange}  />
         <TextInput type='email' label='Email' id='email' placeholder={'email'} defaultValue={currentuser.email} onChange={handleChange} />
         <TextInput type='password' label='Password' id='password' placeholder={'password'} onChange={handleChange} />
-        <Button type='submit' className='w-full mt-4' gradientDuoTone={'purpleToBlue'} outline>Save</Button>
+        <Button type='submit' className='w-full mt-4' gradientDuoTone={'purpleToBlue'} outline disabled ={ loading || imageuploading} >
+            {loading ? 'Loading...' : 'Update'}
+        </Button>
+        {
+            currentuser.isAdmin && (
+                <Link  to="/create-post" >
+
+                <Button
+                className='w-full mt-4' 
+                type='button'
+                gradientDuoTone={'purpleToPink'}
+                outline>
+                     Create Post
+                </Button>
+                </Link>
+            )
+                
+        }
         </form>
         <div className="text-red-500 flex justify-between mt-5">
         <span onClick={()=> setShowModal(true) } className='cursor-pointer'>Delete Account</span>
