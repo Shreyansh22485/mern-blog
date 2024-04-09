@@ -69,3 +69,45 @@ export const getAllPosts = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deletePost = async (req, res, next) => {
+  if(!req.user.isAdmin && req.params.userId !== req.user.id)
+    return next({
+      statusCode: 403,
+      message: "You are not allowed to delete a post",
+    });
+  try {
+    const post = await Post.findByIdAndDelete(req.params.postId);
+    if (!post) return next({ statusCode: 404, message: "Post not found" });
+
+    res.status(200).json({ success: true, message: "Post deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePost = async (req, res, next) => {
+  if (!req.user.isAdmin && req.params.userId !== req.user.id)
+    return next({
+      statusCode: 403,
+      message: "You are not allowed to update a post",
+    });
+  try {
+    const post = await Post.findByIdAndUpdate(req.params.postId,{
+      $set: {
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
+        image: req.body.image,
+
+      }
+    } , {
+      new: true,
+    });
+    if (!post) return next({ statusCode: 404, message: "Post not found" });
+
+    res.status(200).json({ success: true, post });
+  } catch (error) {
+    next(error);
+  }
+};
