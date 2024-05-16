@@ -9,3 +9,30 @@ body{
 .ql-editor{
     font-size: 1.2rem;
 }
+
+.post-content p{
+    margin-bottom: 0.5rem;
+
+}
+
+.post-content img{
+    max-width: 100%;
+    margin: 1rem 0;
+}
+
+.post-content h1{
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+
+.post-content h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+
