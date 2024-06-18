@@ -28,7 +28,6 @@ export const createPost = async (req, res, next) => {
 };
 export const getAllPosts = async (req, res, next) => {
   try {
-    console.log(req.query.userId);
     const startIndex = req.query.startIndex
       ? parseInt(req.query.startIndex)
       : 0;

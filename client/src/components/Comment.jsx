@@ -14,7 +14,7 @@ const Comment = ({comment,onLike,onEdit,onDelete}) => {
     const [editMode, setEditMode] = useState(false);
     const [newComment, setNewComment] = useState(comment.content);
     const {currentuser} = useSelector(state => state.user);
-    console.log(user)
+    
 
     useEffect(() => {
         // console.log(comment);

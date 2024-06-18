@@ -20,7 +20,7 @@ const CommentSection = (postId) => {
   // console.log(comments);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(postId.postId);
+    // console.log(postId.postId);
     try {
       const response = await fetch("/api/comment/create", {
         method: "POST",
