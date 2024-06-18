@@ -1,6 +1,6 @@
 import React from "react";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiUser } from "react-icons/hi";
+import { HiAnnotation, HiArrowSmRight, HiChartPie, HiDocumentText, HiOutlineUserGroup, HiUser } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -39,6 +39,19 @@ const DashSidebar = () => {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
+          { currentuser &&
+            currentuser.isAdmin && (
+              <Link to="/dashboard?tab=dash">
+                <Sidebar.Item
+                  active={tab === "dash" || tab === ""}
+                  icon={HiChartPie}
+                  as="div"
+                >
+                  Dashboard
+                </Sidebar.Item>
+              </Link>
+            )
+          }
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
@@ -64,7 +77,7 @@ const DashSidebar = () => {
             </Link>
           )}
           {currentuser.isAdmin && (
-            <Link to="/dashboard?tab=users">
+            <><Link to="/dashboard?tab=users">
               <Sidebar.Item
                 active={tab === "users"}
                 icon={HiOutlineUserGroup}
@@ -75,6 +88,19 @@ const DashSidebar = () => {
                 Users
               </Sidebar.Item>
             </Link>
+              <Link to="/dashboard?tab=comments">
+                <Sidebar.Item
+                  active={tab === "comments"}
+                  icon={HiAnnotation}
+                  // label={"User"}
+                  // labelColor="dark"
+                  as="div"
+                >
+                  Comments
+                </Sidebar.Item>
+              </Link>
+            </>
+            
           )}
 
           <Sidebar.Item

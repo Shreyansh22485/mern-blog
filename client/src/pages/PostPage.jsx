@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Button, Spinner } from 'flowbite-react';
 import CallToAction from '../components/CallToAction';
 import CommentSection from '../components/CommentSection';
+import PostCard from '../components/PostCard';
 
 
 const PostPage = () => {
@@ -12,6 +13,7 @@ const PostPage = () => {
   const [loading, setLoading] = useState(true);
   const [error , setError] = useState(null);
   const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -38,6 +40,32 @@ const PostPage = () => {
     fetchPost();
     
   }, [postSlug]);
+
+  useEffect(() => {
+    const fetchRecentPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/post/getposts?limit=3');
+        const data = await response.json();
+        if (response.ok) {
+          setRecentPosts(data.posts);
+          // setLoading(false);
+          setError(null);
+        } else {
+          setError(data.message);
+          // setLoading(false);
+          return;
+        }
+        
+      } catch (error) {
+        setError(error.message);
+        // setLoading(false);
+        
+      }
+    }
+    fetchRecentPosts();
+    
+  }, []);
 
   if (loading) {
     return (
@@ -73,6 +101,16 @@ const PostPage = () => {
           <CallToAction />
       </div>
       <CommentSection postId={post && post._id} />
+      <div className=' flex flex-col justify-center items-center mb-5'>
+        <h1 className='text-xl font-serif mt-5'>Recent Articles</h1>
+        <div className='flex flex-wrap gap-5 mt-5 justify-center'>
+          {
+            recentPosts && recentPosts.map((post) => (
+              <PostCard key={post._id} post={post} />
+            ))
+          }
+        </div>
+      </div>
 
     </main>
     
